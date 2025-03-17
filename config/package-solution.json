@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sharepoint-ifc-viewer-client-side-solution",
+    "id": "b01a0265-1eac-4be5-9375-ac6b63c385aa",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "sharepoint-ifc-viewer description"
+      },
+      "longDescription": {
+        "default": "sharepoint-ifc-viewer description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "sharepoint-ifc-viewer Feature",
+        "description": "The feature that activates elements of the sharepoint-ifc-viewer solution.",
+        "id": "5624d097-8464-40fc-b692-cec3f8b34783",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sharepoint-ifc-viewer.sppkg"
+  }
+}

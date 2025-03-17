@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "20.14.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
+    "libraryName": "sharepoint-ifc-viewer",
+    "libraryId": "b01a0265-1eac-4be5-9375-ac6b63c385aa",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "sharepoint-ifc-viewer",
+    "solutionShortDescription": "sharepoint-ifc-viewer description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

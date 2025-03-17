@@ -1,34 +1,48 @@
 {
   "name": "sharepoint-ifc-viewer",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "engines": {
+    "node": ">=18.17.1 <19.0.0"
+  },
+  "main": "lib/index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "gulp bundle",
+    "clean": "gulp clean",
+    "test": "gulp test"
   },
   "dependencies": {
+    "@fluentui/react": "^8.106.4",
+    "@microsoft/sp-component-base": "1.20.0",
+    "@microsoft/sp-core-library": "1.20.0",
+    "@microsoft/sp-lodash-subset": "1.20.0",
+    "@microsoft/sp-office-ui-fabric-core": "1.20.0",
+    "@microsoft/sp-property-pane": "1.20.0",
+    "@microsoft/sp-webpart-base": "1.20.0",
     "@thatopen/components": "~2.2.0",
     "@thatopen/components-front": "~2.2.0",
     "@thatopen/fragments": "~2.2.0",
     "@thatopen/ui": "~2.2.0",
     "@thatopen/ui-obc": "~2.2.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "three": "0.160.1",
+    "tslib": "2.3.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^15.15.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.0"
+    "@microsoft/eslint-config-spfx": "1.20.2",
+    "@microsoft/eslint-plugin-spfx": "1.20.2",
+    "@microsoft/rush-stack-compiler-4.7": "0.1.0",
+    "@microsoft/sp-build-web": "1.20.2",
+    "@microsoft/sp-module-interfaces": "1.20.2",
+    "@rushstack/eslint-config": "4.0.1",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "@types/webpack-env": "~1.15.2",
+    "ajv": "^6.12.5",
+    "eslint": "8.57.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "gulp": "4.0.2",
+    "typescript": "4.7.4"
   }
 }
