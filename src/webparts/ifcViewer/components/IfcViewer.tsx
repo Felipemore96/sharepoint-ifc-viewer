@@ -2,6 +2,7 @@ import * as React from "react";
 import * as OBC from "@thatopen/components";
 import * as OBCF from "@thatopen/components-front";
 import * as BUI from "@thatopen/ui";
+import * as CUI from "@thatopen/ui-obc";
 import type { IIfcViewerProps } from "./IIfcViewerProps";
 
 BUI.Manager.init();
@@ -42,20 +43,19 @@ declare global {
 export default class IfcViewer extends React.Component<IIfcViewerProps> {
   componentDidMount() {
     this.setViewer();
-    this.loadModelCheck();
+    this.setupUI();
   }
+  components = new OBC.Components();
 
   setViewer() {
-    const components = new OBC.Components();
-
-    const worlds = components.get(OBC.Worlds);
+    const worlds = this.components.get(OBC.Worlds);
     const world = worlds.create<
       OBC.SimpleScene,
       OBC.OrthoPerspectiveCamera,
       OBCF.PostproductionRenderer
     >();
 
-    const sceneComponent = new OBC.SimpleScene(components);
+    const sceneComponent = new OBC.SimpleScene(this.components);
     world.scene = sceneComponent;
     world.scene.setup();
     world.scene.three.background = null;
@@ -64,24 +64,24 @@ export default class IfcViewer extends React.Component<IIfcViewerProps> {
       "viewer-container"
     ) as HTMLElement;
     const rendererComponent = new OBCF.PostproductionRenderer(
-      components,
+      this.components,
       viewerContainer
     );
     world.renderer = rendererComponent;
 
-    const cameraComponent = new OBC.OrthoPerspectiveCamera(components);
+    const cameraComponent = new OBC.OrthoPerspectiveCamera(this.components);
     world.camera = cameraComponent;
 
-    components.init();
+    this.components.init();
 
     world.renderer.postproduction.enabled = true;
     world.camera.controls.setLookAt(30, 30, 30, 0, 0, 0);
     world.camera.updateAspect();
 
-    const ifcLoader = components.get(OBC.IfcLoader);
+    const ifcLoader = this.components.get(OBC.IfcLoader);
     ifcLoader.setup();
 
-    const highlighter = components.get(OBCF.Highlighter);
+    const highlighter = this.components.get(OBCF.Highlighter);
     highlighter.setup({ world });
     highlighter.zoomToSelection = true;
 
@@ -92,27 +92,64 @@ export default class IfcViewer extends React.Component<IIfcViewerProps> {
 
     world.camera.controls.addEventListener("controlend", () => {});
 
-    const fragmentsManager = components.get(OBC.FragmentsManager);
+    const fragmentsManager = this.components.get(OBC.FragmentsManager);
     fragmentsManager.onFragmentsLoaded.add(async (model) => {
       world.scene.three.add(model);
     });
   }
 
-  async loadModelCheck() {
-    const components = new OBC.Components();
+  setupUI = () => {
+    const viewerContainer = document.getElementById("viewer-container");
+    if (!viewerContainer) {
+      console.log("Viewer container not found");
+      return;
+    }
 
-    const file = await fetch("./assets/UrbanLoft.frag");
-    const data = await file.arrayBuffer();
-    const fragmentBinary = new Uint8Array(data);
-    const fragmentsManager = components.get(OBC.FragmentsManager);
-    const model = await fragmentsManager.load(fragmentBinary);
+    const floatingGrid = BUI.Component.create<BUI.Grid>(() => {
+      return BUI.html`
+        <bim-grid floating style="padding: 20px"></bim-grid>
+      `;
+    });
 
-    const propsRoute = "./assets/UrbanLoft.json";
-    const jsonProperties = await fetch(propsRoute);
-    const properties = await jsonProperties.json();
+    const toolbar = BUI.Component.create<BUI.Toolbar>(() => {
+      const [loadIfcBtn] = CUI.buttons.loadIfc({ components: this.components });
+      loadIfcBtn.tooltipTitle = "Load IFC";
+      loadIfcBtn.label = "";
 
-    model.setLocalProperties(properties);
-  }
+      return BUI.html`
+        <bim-toolbar style="justify-self: center">
+          <bim-toolbar-section label="Import">
+              ${loadIfcBtn}
+          </bim-toolbar-section>
+        </bim-toolbar>
+      `;
+    });
+
+    floatingGrid.layouts = {
+      main: {
+        template: `
+        "empty" 1fr
+        "toolbar" auto
+        /1fr
+        `,
+        elements: {
+          toolbar,
+        },
+      },
+      dispose: {
+        template: `
+        "empty" 1fr
+        "empty" auto
+        /1fr
+        `,
+        elements: {},
+      },
+    };
+
+    floatingGrid.layout = "main";
+
+    viewerContainer.appendChild(floatingGrid);
+  };
 
   public render(): React.ReactElement<IIfcViewerProps> {
     return (
