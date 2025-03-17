@@ -156,9 +156,9 @@ export default class IfcViewer extends React.Component<IIfcViewerProps> {
       <bim-viewport
         id="viewer-container"
         style={{
-          minWidth: 0,
+          width: "100%",
+          height: "500px", // Set a fixed height for testing
           position: "relative",
-          maxHeight: "calc(100vh - 100px)",
           background: "var(--background-200)",
           borderRadius: "8px",
         }}

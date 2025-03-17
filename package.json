@@ -26,8 +26,10 @@
     "@thatopen/ui-obc": "~2.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-router-dom": "^6.18.0",
     "three": "0.160.1",
-    "tslib": "2.3.1"
+    "tslib": "2.3.1",
+    "web-ifc": "^0.0.57"
   },
   "devDependencies": {
     "@microsoft/eslint-config-spfx": "1.20.2",
@@ -43,6 +45,6 @@
     "eslint": "8.57.0",
     "eslint-plugin-react-hooks": "4.3.0",
     "gulp": "4.0.2",
-    "typescript": "4.7.4"
+    "typescript": "^5.3.3"
   }
 }
